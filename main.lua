@@ -116,15 +116,31 @@ Tab3:CreateButton({
    end,
 })
 
-Tab3:CreateButton({
+local FakeLagEnabled = false -- This variable controls the loop
+
+Tab3:CreateToggle({
    Name = "Fake Lag",
-   Callback = function()
-      while true do
-         character.HumanoidRootPart.Anchored = true
-         task.wait(0.1)
-         character.HumanoidRootPart.Anchored = false
-         task.wait(0.1)
-      end
+   CurrentValue = false,
+   Flag = "FakeLagToggle", -- Unique identifier for this toggle
+   Callback = function(Value)
+      FakeLagEnabled = Value -- Sets the variable to true or false
+      
+      -- We run the loop in a "spawn" function so it doesn't freeze the rest of the script
+      task.spawn(function()
+         while FakeLagEnabled do
+            if character and character:FindFirstChild("HumanoidRootPart") then
+               character.HumanoidRootPart.Anchored = true
+               task.wait(0.1) -- How long you "freeze"
+               character.HumanoidRootPart.Anchored = false
+            end
+            task.wait(0.1) -- How long you "move"
+         end
+         
+         -- Cleanup: Ensure you aren't stuck anchored when you turn it off
+         if character and character:FindFirstChild("HumanoidRootPart") then
+            character.HumanoidRootPart.Anchored = false
+         end
+      end)
    end,
 })
 
