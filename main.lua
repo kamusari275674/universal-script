@@ -1,5 +1,5 @@
 -- Use the direct GitHub link to avoid the 'nil' error
-local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/sirius-menu/Rayfield/main/source.lua'))()
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local player = game:GetService("Players").LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
