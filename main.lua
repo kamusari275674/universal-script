@@ -20,18 +20,43 @@ local Window = Rayfield:CreateWindow({
    LoadingTitle = "Absolute Cinema v2.0",
    LoadingSubtitle = "by Great Andrew",
    Theme = "Default",
-   ConfigurationSaving = { Enabled = true, FolderName = "AndrewHub", FileName = "Config" },
-
-   -- KEY SYSTEM
+   
+   -- ADD THESE TWO LINES TO FIX THE ERROR:
+   DisableRayfieldPrompts = true,
+   DisableBuildWarnings = true, 
+   
+   ConfigurationSaving = {
+      Enabled = false, -- Set this to FALSE temporarily to see if the error stops
+      FolderName = "AndrewHub",
+      FileName = "Config"
+   },
+   
+  local Window = Rayfield:CreateWindow({
+   Name = "Uncle Andrew's Mega Hub",
+   LoadingTitle = "Absolute Cinema v2.0",
+   LoadingSubtitle = "by Great Andrew",
+   Theme = "Default",
+   
+   DisableRayfieldPrompts = true,
+   DisableBuildWarnings = true, 
+   
+   ConfigurationSaving = {
+      Enabled = false, 
+      FolderName = "AndrewHub",
+      FileName = "Config"
+   },
+   
+   -- RE-ADDED KEY SYSTEM
    KeySystem = true,
    KeySettings = {
       Title = "Key Verification",
-      Subtitle = "Link: loot-link.com/s?ijenpvml",
-      Note = "Link copied to clipboard! Paste it into your browser to get the key.",
-      FileName = "AndrewHubKey", 
+      Subtitle = "Link: lootdest.org/s?e44fB2Bl",
+      Note = "The link is in your clipboard! Paste it into your browser.",
+      FileName = "AndrewKey", 
       SaveKey = true, 
-      GrabKeyFromSite = true, 
-      Key = {"https://raw.githubusercontent.com/kamusari275674/universal-script/main/key.txt"} -- Ensure this file exists and contains the key!
+      GrabKeyFromSite = true,
+      -- This must be the RAW link to your key.txt on GitHub
+      Key = {"https://raw.githubusercontent.com/kamusari275674/universal-script/main/key.txt"} 
    }
 })
 
