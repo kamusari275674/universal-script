@@ -13,7 +13,7 @@ local function generateFakeIP()
 end
 
 -- Automatic Clipboard Copy for LootLabs
-setclipboard("https://loot-link.com/s?ijenpvml")
+setclipboard("https://lootdest.org/s?e44fB2Bl")
 
 local Window = Rayfield:CreateWindow({
    Name = "Uncle Andrew's Mega Hub",
