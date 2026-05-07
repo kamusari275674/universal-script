@@ -21,41 +21,26 @@ local Window = Rayfield:CreateWindow({
    LoadingSubtitle = "by Great Andrew",
    Theme = "Default",
    
-   -- ADD THESE TWO LINES TO FIX THE ERROR:
+   -- 1. Disable the version check that causes the build error
    DisableRayfieldPrompts = true,
    DisableBuildWarnings = true, 
    
+   -- 2. THIS IS THE FIX: Set Enabled to false
    ConfigurationSaving = {
-      Enabled = false, -- Set this to FALSE temporarily to see if the error stops
+      Enabled = false, -- Turn this off to stop the PlaceId error
       FolderName = "AndrewHub",
       FileName = "Config"
    },
-   
-  local Window = Rayfield:CreateWindow({
-   Name = "Uncle Andrew's Mega Hub",
-   LoadingTitle = "Absolute Cinema v2.0",
-   LoadingSubtitle = "by Great Andrew",
-   Theme = "Default",
-   
-   DisableRayfieldPrompts = true,
-   DisableBuildWarnings = true, 
-   
-   ConfigurationSaving = {
-      Enabled = false, 
-      FolderName = "AndrewHub",
-      FileName = "Config"
-   },
-   
-   -- RE-ADDED KEY SYSTEM
+
+   -- 3. The Key System (Make sure this stays inside CreateWindow)
    KeySystem = true,
    KeySettings = {
       Title = "Key Verification",
       Subtitle = "Link: lootdest.org/s?e44fB2Bl",
-      Note = "The link is in your clipboard! Paste it into your browser.",
+      Note = "Link copied to clipboard! Paste it into your browser.",
       FileName = "AndrewKey", 
       SaveKey = true, 
       GrabKeyFromSite = true,
-      -- This must be the RAW link to your key.txt on GitHub
       Key = {"https://raw.githubusercontent.com/kamusari275674/universal-script/main/key.txt"} 
    }
 })
