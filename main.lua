@@ -110,21 +110,28 @@ Tab3:CreateButton({
 })
 
 local FakeLagEnabled = false
+
 Tab3:CreateToggle({
    Name = "Fake Lag",
    CurrentValue = false,
    Flag = "FakeLagFlag",
    Callback = function(Value)
        FakeLagEnabled = Value
+       
        if FakeLagEnabled then
            task.spawn(function()
                while FakeLagEnabled do
-                   if character:FindFirstChild("HumanoidRootPart") then
+                   -- This briefly disconnects your character's position from the server
+                   if character and character:FindFirstChild("HumanoidRootPart") then
                        character.HumanoidRootPart.Anchored = true
-                       task.wait(0.1)
+                       task.wait(0.2) -- Increase this to lag harder
                        character.HumanoidRootPart.Anchored = false
                    end
-                   task.wait(0.1)
+                   task.wait(0.05) -- How fast you "catch up"
+               end
+               -- Clean up
+               if character and character:FindFirstChild("HumanoidRootPart") then
+                   character.HumanoidRootPart.Anchored = false
                end
            end)
        end
