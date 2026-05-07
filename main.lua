@@ -18,8 +18,30 @@ local Window = Rayfield:CreateWindow({
    LoadingSubtitle = "by Great Andrew",
    Theme = "Default",
    ConfigurationSaving = { Enabled = true, FolderName = "AndrewHub", FileName = "Config" },
-   KeySystem = false 
+
+   -- KEY SYSTEM SETUP
+   KeySystem = true, 
+   KeySettings = {
+      Title = "Andrew's Key System",
+      Subtitle = "Get the key to continue",
+      Note = "Join the discord or use the link below to get your key!",
+      FileName = "AndrewHubKey", -- Saves the key so they don't have to re-enter it
+      SaveKey = true, 
+      GrabKeyFromSite = true, -- This tells Rayfield to look at a URL for the key
+      Key = {"https://raw.githubusercontent.com/kamusari275674/universal-script/main/key.txt"} -- Create this file on your GitHub!
+   }
 })
+
+-- Adding the "Get Key" button to the UI
+Rayfield:Notify({
+    Title = "Key Required",
+    Content = "The key link has been copied to your clipboard!",
+    Duration = 5,
+    Image = 4483362458,
+})
+
+-- Change this link to your Linkvertise or key site!
+setclipboard("https://loot-link.com/s?ijenpvml")
 
 ---------------------------------------------------------
 -- TAB 1: PLAYER
