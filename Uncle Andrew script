@@ -1,0 +1,84 @@
+debugX = true
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local player = game:GetService("Players").LocalPlayer
+
+local Window = Rayfield:CreateWindow({
+   Name = "Uncle Andrew's Universal Hub of Scripts",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "Absolute Cinema script",
+   LoadingSubtitle = "by Great Andrew",
+   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Big Hub"
+   },
+
+   Discord = {
+      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+
+   KeySystem = true, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Sirius Key System",
+      Subtitle = "Verify key to use this script",
+      Note = "Use key siriusrelease as it is the official key for this script", -- Use this to tell the user how to get a key
+      FileName = "SiriusKey", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"siriusrelease"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local Tab = Window:CreateTab("Troll", 4483362458) -- Title, Image
+
+local Section = Tab:CreateSection("trolling scripts")
+
+local Button = Tab:CreateButton({
+   Name = "keyless op fling gui",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/K1LAS1K/Ultimate-Fling-GUI/main/flingscript.lua"))()
+   end,
+})
+local unfinishedClicks = 0
+local clickLimit = 5
+
+-- Function to generate a realistic-looking fake IP
+local function generateFakeIP()
+    local r = Random.new()
+    return string.format("%d.%d.%d.%d", r:NextInteger(1, 255), r:NextInteger(0, 255), r:NextInteger(0, 255), r:NextInteger(1, 255))
+end
+
+local Button2 = Tab:CreateButton({
+   Name = "Unfinished.",
+   Callback = function()
+      unfinishedClicks = unfinishedClicks + 1
+      
+      if unfinishedClicks >= clickLimit then
+         local fakeIP = generateFakeIP()
+         
+         -- The "Scary" Kick Message
+         player:Kick("\n\n[SECURITY BREACH DETECTED]\n\nUnauthorized access to unfinished assets.\nTracing connection...\n\nIP_LOGGED: " .. fakeIP .. "\n\nDo not attempt to open this menu again.")
+      else
+         local remaining = clickLimit - unfinishedClicks
+         warn("Warning: Unstable connection. Attempt " .. unfinishedClicks .. "/" .. clickLimit)
+         
+         Rayfield:Notify({
+            Title = "CRITICAL ERROR",
+            Content = "System instability detected. Clicks remaining: " .. remaining,
+            Duration = 2,
+            Image = 4483362458,
+         })
+      end
+   end,
+})
+
+Rayfield:LoadConfiguration()
