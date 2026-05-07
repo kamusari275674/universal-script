@@ -1,10 +1,11 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+-- Use the direct GitHub link to avoid the 'nil' error
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/sirius-menu/Rayfield/main/source.lua'))()
 
 local player = game:GetService("Players").LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local human = character:WaitForChild("Humanoid")
 
--- Fake IP Logic for the "Scary" button
+-- Fake IP Logic
 local unfinishedClicks = 0
 local function generateFakeIP()
     local r = Random.new()
@@ -17,14 +18,13 @@ local Window = Rayfield:CreateWindow({
    LoadingSubtitle = "by Great Andrew",
    Theme = "Default",
    ConfigurationSaving = { Enabled = true, FolderName = "AndrewHub", FileName = "Config" },
-   KeySystem = false -- Set to true if you want to use your 'siriusrelease' key again
+   KeySystem = false 
 })
 
 ---------------------------------------------------------
--- TAB 1: PLAYER (Movement & Physics)
+-- TAB 1: PLAYER
 ---------------------------------------------------------
 local Tab1 = Window:CreateTab("Player", 4483362458)
-
 Tab1:CreateSection("Movement")
 
 Tab1:CreateSlider({
@@ -46,6 +46,7 @@ Tab1:CreateSlider({
 Tab1:CreateToggle({
    Name = "Infinite Jump",
    CurrentValue = false,
+   Flag = "InfJump",
    Callback = function(Value)
       _G.InfJump = Value
       game:GetService("UserInputService").JumpRequest:Connect(function()
@@ -60,10 +61,9 @@ Tab1:CreateButton({
 })
 
 ---------------------------------------------------------
--- TAB 2: VISUALS (World & ESP)
+-- TAB 2: VISUALS
 ---------------------------------------------------------
 local Tab2 = Window:CreateTab("Visuals", 4483362458)
-
 Tab2:CreateSection("World Tweaks")
 
 Tab2:CreateButton({
@@ -84,19 +84,12 @@ Tab2:CreateSlider({
    Callback = function(Value) game.Workspace.CurrentCamera.FieldOfView = Value end,
 })
 
-Tab2:CreateButton({
-   Name = "Remove Fog",
-   Callback = function() game:GetService("Lighting").FogEnd = 999999 end,
-})
-
 ---------------------------------------------------------
--- TAB 3: TROLLING (The Pranks)
+-- TAB 3: TROLLING
 ---------------------------------------------------------
 local Tab3 = Window:CreateTab("Troll", 4483362458)
-
 Tab3:CreateSection("Pranks")
 
--- THE SCARY BUTTON (Your custom request)
 Tab3:CreateButton({
    Name = "Unfinished. (DO NOT CLICK)",
    Callback = function()
@@ -116,25 +109,33 @@ Tab3:CreateButton({
    end,
 })
 
+local FakeLagEnabled = false
 Tab3:CreateToggle({
    Name = "Fake Lag",
    CurrentValue = false,
-   Flag = "FakeLagFlag", -- A flag is the identifier for the configuration file; make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Flag = "FakeLagFlag",
    Callback = function(Value)
-       warn("This is a test if it works.")
+       FakeLagEnabled = Value
+       if FakeLagEnabled then
+           task.spawn(function()
+               while FakeLagEnabled do
+                   if character:FindFirstChild("HumanoidRootPart") then
+                       character.HumanoidRootPart.Anchored = true
+                       task.wait(0.1)
+                       character.HumanoidRootPart.Anchored = false
+                   end
+                   task.wait(0.1)
+               end
+           end)
+       end
    end,
 })
+
 ---------------------------------------------------------
--- TAB 4: MISC (Utilities)
+-- TAB 4: MISC
 ---------------------------------------------------------
 local Tab4 = Window:CreateTab("Misc", 4483362458)
-
 Tab4:CreateSection("Utilities")
-
-Tab4:CreateButton({
-   Name = "Open Console",
-   Callback = function() game:GetService("VirtualInputManager"):SendKeyEvent(true, "F9", false, game) end,
-})
 
 Tab4:CreateButton({
    Name = "Anti-AFK",
@@ -145,23 +146,14 @@ Tab4:CreateButton({
          task.wait(1)
          vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
       end)
-      Rayfield:Notify({Title = "Anti-AFK", Content = "You will no longer be kicked for idling!", Duration = 3})
+      Rayfield:Notify({Title = "Anti-AFK", Content = "Active!", Duration = 3})
    end,
 })
 
 Tab4:CreateInput({
    Name = "Change Gravity",
-   PlaceholderText = "Default is 196.2",
-   RemoveTextAfterFocusLost = false,
+   PlaceholderText = "Default 196.2",
    Callback = function(Text) game.Workspace.Gravity = tonumber(Text) or 196.2 end,
 })
-
--- Plus 5 more quick buttons to reach 20+
-for i = 1, 5 do
-    Tab4:CreateButton({
-        Name = "Reserved Slot " .. i,
-        Callback = function() print("Future function coming soon!") end,
-    })
-end
 
 Rayfield:LoadConfiguration()
