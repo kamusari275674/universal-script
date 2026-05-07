@@ -12,6 +12,9 @@ local function generateFakeIP()
     return string.format("%d.%d.%d.%d", r:NextInteger(1, 255), r:NextInteger(0, 255), r:NextInteger(0, 255), r:NextInteger(1, 255))
 end
 
+-- Automatic Clipboard Copy for LootLabs
+setclipboard("https://loot-link.com/s?ijenpvml")
+
 local Window = Rayfield:CreateWindow({
    Name = "Uncle Andrew's Mega Hub",
    LoadingTitle = "Absolute Cinema v2.0",
@@ -19,29 +22,26 @@ local Window = Rayfield:CreateWindow({
    Theme = "Default",
    ConfigurationSaving = { Enabled = true, FolderName = "AndrewHub", FileName = "Config" },
 
-   -- KEY SYSTEM SETUP
-   KeySystem = true, 
+   -- KEY SYSTEM
+   KeySystem = true,
    KeySettings = {
-      Title = "Andrew's Key System",
-      Subtitle = "Get the key to continue",
-      Note = "Join the discord or use the link below to get your key!",
-      FileName = "AndrewHubKey", -- Saves the key so they don't have to re-enter it
+      Title = "Key Verification",
+      Subtitle = "Link: loot-link.com/s?ijenpvml",
+      Note = "Link copied to clipboard! Paste it into your browser to get the key.",
+      FileName = "AndrewHubKey", 
       SaveKey = true, 
-      GrabKeyFromSite = true, -- This tells Rayfield to look at a URL for the key
-      Key = {"https://raw.githubusercontent.com/kamusari275674/universal-script/main/key.txt"} -- Create this file on your GitHub!
+      GrabKeyFromSite = true, 
+      Key = {"https://raw.githubusercontent.com/kamusari275674/universal-script/main/key.txt"} -- Ensure this file exists and contains the key!
    }
 })
 
--- Adding the "Get Key" button to the UI
+-- Notify the user
 Rayfield:Notify({
-    Title = "Key Required",
-    Content = "The key link has been copied to your clipboard!",
-    Duration = 5,
+    Title = "Key System",
+    Content = "The LootLabs link has been copied! Follow the steps to get your key.",
+    Duration = 7,
     Image = 4483362458,
 })
-
--- Change this link to your Linkvertise or key site!
-setclipboard("https://loot-link.com/s?ijenpvml")
 
 ---------------------------------------------------------
 -- TAB 1: PLAYER
