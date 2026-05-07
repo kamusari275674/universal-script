@@ -118,34 +118,14 @@ Tab3:CreateButton({
 
 local FakeLagEnabled = false -- Variable to track the state
 
-local Toggle = Tab3:CreateToggle({
+Tab3:CreateToggle({
    Name = "Fake Lag",
-   CurrentValue = false,
-   Flag = "FakeLag1", 
-   Callback = function(Value)
-      FakeLagEnabled = Value -- 'Value' is true when toggled on, false when off
-      
-      if FakeLagEnabled then
-         -- Start the lag loop in the background
-         task.spawn(function()
-            while FakeLagEnabled do
-               if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                  player.Character.HumanoidRootPart.Anchored = true
-                  task.wait(0.1)
-                  player.Character.HumanoidRootPart.Anchored = false
-               end
-               task.wait(0.1)
-            end
-            
-            -- Safety: make sure player isn't stuck frozen when they turn it off
-            if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-               player.Character.HumanoidRootPart.Anchored = false
-            end
-         end)
-      end
+   CurrentValue = false
+   Flag = "FakeLagFlag"
+   Callback = function()
+      warn("test")
    end,
 })
-
 ---------------------------------------------------------
 -- TAB 4: MISC (Utilities)
 ---------------------------------------------------------
