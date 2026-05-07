@@ -116,14 +116,12 @@ Tab3:CreateButton({
    end,
 })
 
-local FakeLagEnabled = false -- Variable to track the state
-
 Tab3:CreateToggle({
    Name = "Fake Lag",
-   CurrentValue = false
-   Flag = "FakeLagFlag"
-   Callback = function()
-      warn("test")
+   CurrentValue = false,
+   Flag = "FakeLagFlag", -- A flag is the identifier for the configuration file; make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+       warn("This is a test if it works.")
    end,
 })
 ---------------------------------------------------------
