@@ -116,31 +116,33 @@ Tab3:CreateButton({
    end,
 })
 
-local FakeLagEnabled = false -- This variable controls the loop
+local FakeLagEnabled = false -- Variable to track the state
 
-Tab3:CreateToggle({
+local Toggle = Tab3:CreateToggle({
    Name = "Fake Lag",
    CurrentValue = false,
-   Flag = "FakeLagToggle", -- Unique identifier for this toggle
+   Flag = "FakeLag1", 
    Callback = function(Value)
-      FakeLagEnabled = Value -- Sets the variable to true or false
+      FakeLagEnabled = Value -- 'Value' is true when toggled on, false when off
       
-      -- We run the loop in a "spawn" function so it doesn't freeze the rest of the script
-      task.spawn(function()
-         while FakeLagEnabled do
-            if character and character:FindFirstChild("HumanoidRootPart") then
-               character.HumanoidRootPart.Anchored = true
-               task.wait(0.1) -- How long you "freeze"
-               character.HumanoidRootPart.Anchored = false
+      if FakeLagEnabled then
+         -- Start the lag loop in the background
+         task.spawn(function()
+            while FakeLagEnabled do
+               if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                  player.Character.HumanoidRootPart.Anchored = true
+                  task.wait(0.1)
+                  player.Character.HumanoidRootPart.Anchored = false
+               end
+               task.wait(0.1)
             end
-            task.wait(0.1) -- How long you "move"
-         end
-         
-         -- Cleanup: Ensure you aren't stuck anchored when you turn it off
-         if character and character:FindFirstChild("HumanoidRootPart") then
-            character.HumanoidRootPart.Anchored = false
-         end
-      end)
+            
+            -- Safety: make sure player isn't stuck frozen when they turn it off
+            if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+               player.Character.HumanoidRootPart.Anchored = false
+            end
+         end)
+      end
    end,
 })
 
